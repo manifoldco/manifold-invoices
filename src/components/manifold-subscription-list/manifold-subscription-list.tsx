@@ -1,4 +1,4 @@
-import { Component, h, Element } from "@stencil/core";
+import { Component, h, Prop, Element } from "@stencil/core";
 import { Connection } from "@manifoldco/manifold-init-types/types/v0";
 
 @Component({
@@ -7,6 +7,7 @@ import { Connection } from "@manifoldco/manifold-init-types/types/v0";
 })
 export class ManifoldSubscriptionList {
   @Element() el: HTMLElement;
+  @Prop() clientId?: string = '';
 
   connection: Connection;
 

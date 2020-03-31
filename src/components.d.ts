@@ -10,7 +10,9 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface ManifoldSubscriptionList {}
+  interface ManifoldSubscriptionList {
+    'clientId'?: string;
+  }
 }
 
 declare global {
@@ -27,7 +29,9 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface ManifoldSubscriptionList {}
+  interface ManifoldSubscriptionList {
+    'clientId'?: string;
+  }
 
   interface IntrinsicElements {
     'manifold-subscription-list': ManifoldSubscriptionList;

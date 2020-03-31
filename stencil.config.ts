@@ -50,6 +50,10 @@ export const config: Config = {
       serviceWorker: null // disable service workers
     }
   ],
+  testing: {
+    testPathIgnorePatterns: ['/node_modules/'],
+    transformIgnorePatterns: ['node_modules/(?!@manifoldco/manifold-init)']
+  },
   plugins: [
     gql(),
     sass(),
