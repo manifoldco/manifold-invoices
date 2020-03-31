@@ -19,6 +19,7 @@ log.txt
 .versions/
 node_modules/
 $RECYCLE.BIN/
+.editorconfig
 
 .DS_Store
 Thumbs.db
