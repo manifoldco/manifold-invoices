@@ -6,7 +6,7 @@
   "module": "dist/index.mjs",
   "es2015": "dist/esm/index.mjs",
   "es2017": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/manifold-invoices/manifold-invoices.js",
@@ -15,11 +15,13 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "test.debug": "node --inspect-brk node_modules/.bin/stencil test --spec --e2e --runInBand",
+    "generate:gql": "graphql-codegen --config codegen.yaml",
+    "generate:": "stencil generate"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.1",
@@ -34,6 +36,7 @@
     "@types/jest": "24.0.25",
     "@types/puppeteer": "1.20.4",
     "cssnano": "^4.1.10",
+    "fetch-mock": "^9.4.0",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
     "postcss-preset-env": "^6.7.0",

@@ -1,0 +1,18 @@
+query Invoices($first: Int!, $after: String!) {
+  profile {
+    invoices(first: $first, after: $after) {
+      edges {
+        node {
+          start
+          end
+          cost
+          status
+          currency
+          revenueShare {
+            platform
+          }
+        }
+      }
+    }
+  }
+}
