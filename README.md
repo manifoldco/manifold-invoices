@@ -1,5 +1,3 @@
-# manifold-subscription-list
+# manifold-invoices
 
-Web component to list subscriptions
-
-
+A web component allowing Checkout users to view their invoices.
