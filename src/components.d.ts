@@ -10,7 +10,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface ManifoldSubscriptionList {
+  interface ManifoldInvoices {
     'clientId'?: string;
   }
 }
@@ -18,23 +18,23 @@ export namespace Components {
 declare global {
 
 
-  interface HTMLManifoldSubscriptionListElement extends Components.ManifoldSubscriptionList, HTMLStencilElement {}
-  var HTMLManifoldSubscriptionListElement: {
-    prototype: HTMLManifoldSubscriptionListElement;
-    new (): HTMLManifoldSubscriptionListElement;
+  interface HTMLManifoldInvoicesElement extends Components.ManifoldInvoices, HTMLStencilElement {}
+  var HTMLManifoldInvoicesElement: {
+    prototype: HTMLManifoldInvoicesElement;
+    new (): HTMLManifoldInvoicesElement;
   };
   interface HTMLElementTagNameMap {
-    'manifold-subscription-list': HTMLManifoldSubscriptionListElement;
+    'manifold-invoices': HTMLManifoldInvoicesElement;
   }
 }
 
 declare namespace LocalJSX {
-  interface ManifoldSubscriptionList {
+  interface ManifoldInvoices {
     'clientId'?: string;
   }
 
   interface IntrinsicElements {
-    'manifold-subscription-list': ManifoldSubscriptionList;
+    'manifold-invoices': ManifoldInvoices;
   }
 }
 
@@ -44,7 +44,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
-      'manifold-subscription-list': LocalJSX.ManifoldSubscriptionList & JSXBase.HTMLAttributes<HTMLManifoldSubscriptionListElement>;
+      'manifold-invoices': LocalJSX.ManifoldInvoices & JSXBase.HTMLAttributes<HTMLManifoldInvoicesElement>;
     }
   }
 }

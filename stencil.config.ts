@@ -27,45 +27,45 @@ function gql(opts: Options = {}) {
     transform(code, id) {
       if (filter(id)) {
         return {
-          code: `export default ${JSON.stringify(code)}`
+          code: `export default ${JSON.stringify(code)}`,
         };
       }
-    }
+    },
   };
 }
 
 export const config: Config = {
-  namespace: "manifold-subscription-list",
+  namespace: "manifold-invoices",
   globalStyle: "src/styles/index.scss",
   outputTargets: [
     {
       type: "dist",
-      esmLoaderPath: "../loader"
+      esmLoaderPath: "../loader",
     },
     {
-      type: "docs-readme"
+      type: "docs-readme",
     },
     {
       type: "www",
-      serviceWorker: null // disable service workers
-    }
+      serviceWorker: null, // disable service workers
+    },
   ],
   testing: {
-    testPathIgnorePatterns: ['/node_modules/'],
-    transformIgnorePatterns: ['node_modules/(?!@manifoldco/manifold-init)']
+    testPathIgnorePatterns: ["/node_modules/"],
+    transformIgnorePatterns: ["node_modules/(?!@manifoldco/manifold-init)"],
   },
   plugins: [
     gql(),
     sass(),
     postcss({
-      plugins: [cssnano(), postCSSPresetEnv()]
+      plugins: [cssnano(), postCSSPresetEnv()],
     }),
     replace({
       exclude: "node_modules/**",
       delimiters: ["<@", "@>"],
       values: {
-        NPM_PACKAGE_VERSION: pkgManifest.version
-      }
-    })
-  ]
+        NPM_PACKAGE_VERSION: pkgManifest.version,
+      },
+    }),
+  ],
 };

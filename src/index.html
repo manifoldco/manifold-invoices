@@ -6,9 +6,9 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
-    <title>Manifold Subscription List</title>
+    <title>Manifold Invoices</title>
 
-    <link rel="stylesheet" href="/build/manifold-subscription-list.css" />
+    <link rel="stylesheet" href="/build/manifold-invoices.css" />
 
     <!-- manifold-init -->
     <script
@@ -21,14 +21,11 @@
       src="https://js.cdn.manifold.co/@manifoldco/manifold-init/dist/manifold-init/manifold-init.js"
     ></script>
 
-    <script
-      type="module"
-      src="/build/manifold-subscription-list.esm.js"
-    ></script>
-    <script nomodule src="/build/manifold-subscription-list.js"></script>
+    <script type="module" src="/build/manifold-invoices.esm.js"></script>
+    <script nomodule src="/build/manifold-invoices.js"></script>
   </head>
   <body>
     <manifold-init env="stage"></manifold-init>
-    <manifold-subscription-list></manifold-subscription-list>
+    <manifold-invoices></manifold-invoices>
   </body>
 </html>

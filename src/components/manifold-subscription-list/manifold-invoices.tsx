@@ -2,12 +2,12 @@ import { Component, h, Prop, Element } from "@stencil/core";
 import { Connection } from "@manifoldco/manifold-init-types/types/v0";
 
 @Component({
-  tag: "manifold-subscription-list",
-  styleUrl: "manifold-subscription-list.css"
+  tag: "manifold-invoices",
+  styleUrl: "manifold-invoices.css",
 })
-export class ManifoldSubscriptionList {
+export class ManifoldInvoices {
   @Element() el: HTMLElement;
-  @Prop() clientId?: string = '';
+  @Prop() clientId?: string = "";
 
   connection: Connection;
 
@@ -19,10 +19,10 @@ export class ManifoldSubscriptionList {
     this.connection = await core.initialize({
       element: this.el,
       componentVersion: "<@NPM_PACKAGE_VERSION@>",
-      version: 0
+      version: 0,
     });
   }
   render() {
-    return <div class="ManifoldSubscriptionList">Hello out there</div>;
+    return <div class="ManifoldInvoices">Hello out there</div>;
   }
 }
