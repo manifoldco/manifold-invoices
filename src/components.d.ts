@@ -11,7 +11,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 export namespace Components {
   interface ManifoldInvoices {
-    'clientId'?: string;
+    'heading'?: string;
   }
 }
 
@@ -30,7 +30,7 @@ declare global {
 
 declare namespace LocalJSX {
   interface ManifoldInvoices {
-    'clientId'?: string;
+    'heading'?: string;
   }
 
   interface IntrinsicElements {
