@@ -10,9 +10,7 @@ import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-  interface ManifoldInvoices {
-    'heading'?: string;
-  }
+  interface ManifoldInvoices {}
 }
 
 declare global {
@@ -29,9 +27,7 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface ManifoldInvoices {
-    'heading'?: string;
-  }
+  interface ManifoldInvoices {}
 
   interface IntrinsicElements {
     'manifold-invoices': ManifoldInvoices;

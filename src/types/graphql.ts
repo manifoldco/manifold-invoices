@@ -1223,7 +1223,14 @@ export type SubscriptionAgreement = Node & {
   id: Scalars['ID'];
   plan: Maybe<Plan>;
   status: SubscriptionAgreementStatus;
+  configuredFeatures: Maybe<ConfiguredFeatureConnection>;
   owner: Maybe<Profile>;
+};
+
+
+export type SubscriptionAgreementConfiguredFeaturesArgs = {
+  first: Scalars['Int'];
+  after: Maybe<Scalars['String']>;
 };
 
 export type SubscriptionAgreementConnection = {
@@ -1338,11 +1345,34 @@ export type InvoicesQuery = (
         { __typename?: 'InvoiceEdge' }
         & { node: Maybe<(
           { __typename?: 'Invoice' }
-          & Pick<Invoice, 'start' | 'end' | 'cost' | 'status' | 'currency'>
-          & { revenueShare: (
-            { __typename?: 'RevenueShare' }
-            & Pick<RevenueShare, 'platform'>
-          ) }
+          & Pick<Invoice, 'id' | 'start' | 'end' | 'cost' | 'status'>
+          & { lineItems: Maybe<(
+            { __typename?: 'LineItemConnection' }
+            & { edges: Array<(
+              { __typename?: 'LineItemEdge' }
+              & { node: Maybe<(
+                { __typename?: 'LineItem' }
+                & Pick<LineItem, 'duration' | 'cost' | 'chargeTime'>
+                & { resource: Maybe<(
+                  { __typename?: 'Resource' }
+                  & Pick<Resource, 'displayName'>
+                  & { plan: Maybe<(
+                    { __typename?: 'Plan' }
+                    & Pick<Plan, 'displayName'>
+                  )> }
+                )>, subLineItems: Maybe<(
+                  { __typename?: 'SubLineItemConnection' }
+                  & { edges: Array<(
+                    { __typename?: 'SubLineItemEdge' }
+                    & { node: Maybe<(
+                      { __typename?: 'SubLineItem' }
+                      & Pick<SubLineItem, 'cost' | 'item' | 'description' | 'calculationType'>
+                    )> }
+                  )> }
+                )> }
+              )> }
+            )> }
+          )> }
         )> }
       )> }
     )> }
