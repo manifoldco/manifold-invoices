@@ -56,20 +56,24 @@ export class ManifoldInvoices {
           <div>
             <button onClick={this.select()}>Back to all invoices</button>
             <table>
-              <tr>
-                <th>Service</th>
-                <th>Due</th>
-                <th>Duration</th>
-                <th>Plan</th>
-              </tr>
-              {invoice.node.lineItems.edges.map((edge) => (
+              <thead>
                 <tr>
-                  <td>{edge.node.resource.displayName}</td>
-                  <td>{edge.node.cost}</td>
-                  <td>{edge.node.duration}</td>
-                  <td>{edge.node.resource.plan.displayName}</td>
+                  <th>Service</th>
+                  <th>Due</th>
+                  <th>Duration</th>
+                  <th>Plan</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {invoice.node.lineItems.edges.map((edge) => (
+                  <tr>
+                    <td>{edge.node.resource.displayName}</td>
+                    <td>{edge.node.cost}</td>
+                    <td>{edge.node.duration}</td>
+                    <td>{edge.node.resource.plan.displayName}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         );
@@ -77,24 +81,28 @@ export class ManifoldInvoices {
 
       return (
         <table>
-          <tr>
-            <th>Billing Period</th>
-            <th>Due</th>
-            <th></th>
-          </tr>
-          {this.data.profile.invoices.edges.map((invoice) => {
-            return (
-              <tr id={invoice.node.id}>
-                <td>{invoice.node.start}</td>
-                <td>{invoice.node.cost}</td>
-                <td>
-                  <button onClick={this.select(invoice.node.id)}>
-                    View details
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          <thead>
+            <tr>
+              <th>Billing Period</th>
+              <th>Due</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.data.profile.invoices.edges.map((invoice) => {
+              return (
+                <tr id={invoice.node.id}>
+                  <td>{invoice.node.start}</td>
+                  <td>{invoice.node.cost}</td>
+                  <td>
+                    <button onClick={this.select(invoice.node.id)}>
+                      View details
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       );
     }
