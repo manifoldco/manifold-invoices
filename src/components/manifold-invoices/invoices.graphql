@@ -3,13 +3,39 @@ query Invoices($first: Int!, $after: String!) {
     invoices(first: $first, after: $after) {
       edges {
         node {
+          id
           start
           end
           cost
           status
-          currency
-          revenueShare {
-            platform
+          # Because these are paginated, it might be prudent in
+          # the future to break the list & detail views into
+          # separate queries, allowing us to load additional
+          # lineItems and subLineItems on demand.
+          lineItems(first: 500) {
+            edges {
+              node {
+                duration
+                cost
+                chargeTime
+                resource {
+                  displayName
+                  plan {
+                    displayName
+                  }
+                }
+                subLineItems(first: 500) {
+                  edges {
+                    node {
+                      cost
+                      item
+                      description
+                      calculationType
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
