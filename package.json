@@ -1,5 +1,5 @@
 {
-  "name": "manifold-invoices",
+  "name": "@manifoldco/manifold-invoices",
   "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
@@ -21,6 +21,7 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "test.debug": "node --inspect-brk node_modules/.bin/stencil test --spec --e2e --runInBand",
     "generate:gql": "graphql-codegen --config codegen.yaml",
+    "clean-package-json": "node scripts/clean-package-json",
     "generate:": "stencil generate"
   },
   "devDependencies": {
