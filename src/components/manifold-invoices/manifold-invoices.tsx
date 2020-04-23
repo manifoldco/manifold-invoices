@@ -65,16 +65,44 @@ export class ManifoldInvoices {
                 </tr>
               </thead>
               <tbody>
-                {invoice.node.lineItems.edges.map((edge) => (
+                {invoice.node.lineItems.edges.map((edge) => [
                   <tr>
                     <td>{edge.node.resource.displayName}</td>
                     <td>{edge.node.cost}</td>
                     <td>{edge.node.duration}</td>
                     <td>{edge.node.resource.plan.displayName}</td>
-                  </tr>
-                ))}
+                  </tr>,
+                  edge.node.subLineItems &&
+                    edge.node.subLineItems.edges.length && (
+                      <tr>
+                        <td colSpan={4}>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Feature(s)</th>
+                                <th>Cost</th>
+                                <th>Usage</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {edge.node.subLineItems.edges.map((sub) => (
+                                <tr>
+                                  <td>{sub.node.item}</td>
+                                  <td>{sub.node.cost}</td>
+                                  <td>{sub.node.description}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    ),
+                ])}
               </tbody>
             </table>
+            <div>
+              <p>Total Due {invoice.node.cost}</p>
+            </div>
           </div>
         );
       }
