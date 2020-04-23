@@ -17,7 +17,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
       - run: npm install
-      - run: make package
+      - name: Set package version
+        env:
+          TAG: ${{ github.ref }}
+        run: echo "::set-env name=PACKAGE_VERSION::${TAG#refs/tags/v}"
+      - run: make package VERSION=${{ env.PACKAGE_VERSION }}
       - run: 'echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc'
       - run: "npm publish ./pkg --tag next --access public"
   cdn:
