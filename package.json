@@ -22,7 +22,6 @@
     "test.debug": "node --inspect-brk node_modules/.bin/stencil test --spec --e2e --runInBand",
     "generate:gql": "graphql-codegen --config codegen.yaml",
     "clean-package-json": "node scripts/clean-package-json",
-    "version-from-git": "node scripts/version-from-git",
     "generate:": "stencil generate"
   },
   "devDependencies": {
