@@ -6,7 +6,6 @@ import { InvoicesQuery } from "../../types/graphql";
 
 @Component({
   tag: "manifold-invoices",
-  styleUrl: "manifold-invoices.css",
 })
 export class ManifoldInvoices {
   @Element() el: HTMLElement;
@@ -108,7 +107,7 @@ export class ManifoldInvoices {
       }
 
       return (
-        <table>
+        <table class="ManifoldInvoices ManifoldInvoices__List">
           <thead>
             <tr>
               <th>Billing Period</th>
@@ -120,8 +119,13 @@ export class ManifoldInvoices {
             {this.data.profile.invoices.edges.map((invoice) => {
               return (
                 <tr id={invoice.node.id}>
-                  <td>{invoice.node.start}</td>
-                  <td>{invoice.node.cost}</td>
+                  <td class="grayDark">
+                    {new Intl.DateTimeFormat("en", {
+                      year: "numeric",
+                      month: "long",
+                    }).format(new Date(invoice.node.end))}
+                  </td>
+                  <td>${invoice.node.cost.toFixed(2)}</td>
                   <td>
                     <button onClick={this.select(invoice.node.id)}>
                       View details
