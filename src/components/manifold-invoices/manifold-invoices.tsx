@@ -54,9 +54,15 @@ export class ManifoldInvoices {
         return (
           <div>
             <button onClick={this.select()}>Back to all invoices</button>
-            <table>
+            <h1 class="Subheading">
+              {new Intl.DateTimeFormat("en", {
+                year: "numeric",
+                month: "long",
+              }).format(new Date(invoice.node.end))}
+            </h1>
+            <table class="MarginTop">
               <thead>
-                <tr>
+                <tr class="GrayLighter">
                   <th>Service</th>
                   <th>Due</th>
                   <th>Duration</th>
@@ -67,7 +73,7 @@ export class ManifoldInvoices {
                 {invoice.node.lineItems.edges.map((edge) => [
                   <tr>
                     <td>{edge.node.resource.displayName}</td>
-                    <td>{edge.node.cost}</td>
+                    <td>${edge.node.cost.toFixed(2)}</td>
                     <td>{edge.node.duration}</td>
                     <td>{edge.node.resource.plan.displayName}</td>
                   </tr>,
@@ -86,9 +92,13 @@ export class ManifoldInvoices {
                             <tbody>
                               {edge.node.subLineItems.edges.map((sub) => (
                                 <tr>
-                                  <td>{sub.node.item}</td>
-                                  <td>{sub.node.cost}</td>
-                                  <td>{sub.node.description}</td>
+                                  <td class="grayDark caps">{sub.node.item}</td>
+                                  <td class="grayDark">
+                                    ${sub.node.cost.toFixed(2)}
+                                  </td>
+                                  <td class="grayDark">
+                                    {sub.node.description}
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>
@@ -100,16 +110,16 @@ export class ManifoldInvoices {
               </tbody>
             </table>
             <div>
-              <p>Total Due {invoice.node.cost}</p>
+              <p>Total Due ${invoice.node.cost.toFixed(2)}</p>
             </div>
           </div>
         );
       }
 
       return (
-        <table class="ManifoldInvoices ManifoldInvoices__List">
+        <table>
           <thead>
-            <tr>
+            <tr class="GrayLight">
               <th>Billing Period</th>
               <th>Due</th>
               <th></th>
@@ -142,8 +152,8 @@ export class ManifoldInvoices {
 
   render() {
     return (
-      <div class="ManifoldInvoices">
-        <h1 class="ManifoldInvoices__List__Heading">Billing Statements</h1>
+      <div>
+        <h1 class="Heading">Billing Statements</h1>
         {this.content()}
       </div>
     );
