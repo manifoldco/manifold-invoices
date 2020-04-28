@@ -44,5 +44,8 @@
     "puppeteer": "1.20.0",
     "rollup-pluginutils": "^2.8.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@manifoldco/mercury": "^0.2.2"
+  }
 }
