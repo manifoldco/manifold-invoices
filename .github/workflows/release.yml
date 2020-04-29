@@ -19,7 +19,11 @@ jobs:
       # Make sure types are valid
       - run: npm install
       - run: npm run typecheck
-      - run: make package
+      - name: Set package version
+        env:
+          TAG: ${{ github.ref }}
+        run: echo "::set-env name=PACKAGE_VERSION::${TAG#refs/tags/v}"
+      - run: make package VERSION=${{ env.PACKAGE_VERSION }}
       - run: 'echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc'
       - run: "npm publish ./pkg --tag latest"
   cdn:
