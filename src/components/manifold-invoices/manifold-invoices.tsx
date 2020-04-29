@@ -64,15 +64,15 @@ export class ManifoldInvoices {
         return (
           <div>
             <button onClick={this.select()}>Back to all invoices</button>
-            <h1 class="Subheading">
+            <h1 class="ManifoldInvoices__Subheading">
               {new Intl.DateTimeFormat("en", {
                 year: "numeric",
                 month: "long",
               }).format(new Date(invoice.node.end))}
             </h1>
-            <table class="MarginTop">
-              <thead>
-                <tr class="GrayLighter">
+            <table>
+              <thead class="ManifoldInvoices__TableHeading">
+                <tr class="ManifoldInvoices__TableHeading--GrayLighter">
                   <th>Service</th>
                   <th>Due</th>
                   <th>Duration</th>
@@ -102,9 +102,13 @@ export class ManifoldInvoices {
                             <tbody>
                               {edge.node.subLineItems.edges.map((sub) => (
                                 <tr>
-                                  <td class="grayDark caps">{sub.node.item}</td>
-                                  <td class="grayDark">{$(sub.node.cost)}</td>
-                                  <td class="grayDark">
+                                  <td class="ManifoldInvoices__TableCell--GrayDark ManifoldInvoices__TableCell--Caps">
+                                    {sub.node.item}
+                                  </td>
+                                  <td class="ManifoldInvoices__TableCell--GrayDark">
+                                    {$(sub.node.cost)}
+                                  </td>
+                                  <td class="ManifoldInvoices__TableCell--GrayDark">
                                     {sub.node.description}
                                   </td>
                                 </tr>
@@ -126,8 +130,8 @@ export class ManifoldInvoices {
 
       return (
         <table>
-          <thead>
-            <tr class="GrayLight">
+          <thead class="ManifoldInvoices__TableHeading">
+            <tr class="ManifoldInvoices__TableHeading--GrayLight">
               <th>Billing Period</th>
               <th>Due</th>
               <th></th>
@@ -137,7 +141,7 @@ export class ManifoldInvoices {
             {this.data.profile.invoices.edges.map((invoice) => {
               return (
                 <tr id={invoice.node.id}>
-                  <td class="grayDark">
+                  <td class="ManifoldInvoices__TableCell--GrayDark">
                     {new Intl.DateTimeFormat("en", {
                       year: "numeric",
                       month: "long",
@@ -160,8 +164,8 @@ export class ManifoldInvoices {
 
   render() {
     return (
-      <div>
-        <h1 class="Heading">Billing Statements</h1>
+      <div class="ManifoldInvoices">
+        <h1 class="ManifoldInvoices__Heading">Billing Statements</h1>
         {this.content()}
       </div>
     );
