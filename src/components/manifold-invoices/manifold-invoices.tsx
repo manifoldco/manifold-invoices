@@ -4,6 +4,16 @@ import { Connection } from "@manifoldco/manifold-init-types/types/v0";
 import query from "./invoices.graphql";
 import { InvoicesQuery } from "../../types/graphql";
 
+const $ = (amount: number, options: object = {}): string => {
+  return Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    ...options,
+  })
+    .format(amount / 100)
+    .replace(/\.00$/, "");
+};
+
 @Component({
   tag: "manifold-invoices",
 })
@@ -73,7 +83,7 @@ export class ManifoldInvoices {
                 {invoice.node.lineItems.edges.map((edge) => [
                   <tr>
                     <td>{edge.node.resource.displayName}</td>
-                    <td>${edge.node.cost.toFixed(2)}</td>
+                    <td>{$(edge.node.cost)}</td>
                     <td>{edge.node.duration}</td>
                     <td>{edge.node.resource.plan.displayName}</td>
                   </tr>,
@@ -93,9 +103,7 @@ export class ManifoldInvoices {
                               {edge.node.subLineItems.edges.map((sub) => (
                                 <tr>
                                   <td class="grayDark caps">{sub.node.item}</td>
-                                  <td class="grayDark">
-                                    ${sub.node.cost.toFixed(2)}
-                                  </td>
+                                  <td class="grayDark">{$(sub.node.cost)}</td>
                                   <td class="grayDark">
                                     {sub.node.description}
                                   </td>
@@ -110,7 +118,7 @@ export class ManifoldInvoices {
               </tbody>
             </table>
             <div>
-              <p>Total Due ${invoice.node.cost.toFixed(2)}</p>
+              <p>Total Due {$(invoice.node.cost)}</p>
             </div>
           </div>
         );
@@ -135,7 +143,7 @@ export class ManifoldInvoices {
                       month: "long",
                     }).format(new Date(invoice.node.end))}
                   </td>
-                  <td>${invoice.node.cost.toFixed(2)}</td>
+                  <td>{$(invoice.node.cost)}</td>
                   <td>
                     <button onClick={this.select(invoice.node.id)}>
                       View details
