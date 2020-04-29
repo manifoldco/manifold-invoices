@@ -6,55 +6,104 @@ th {
 }
 
 manifold-invoices {
-  table {
-    border-spacing: 0;
+  .#{$name} {
+    button {
+      @include mercury.Button;
+    }
 
-    thead {
-      @include mercury.Typography--SubheadingSmall;
-
-      text-align: left;
-      color: mercury.$color-grayDarker;
-      background-color: transparent;
-
-      tr {
+    &__TableHeading {
+      &--GrayLight {
         background-color: mercury.$color-grayLight;
+      }
 
-        th {
-          padding: 0.75rem;
-
-          &:first-child {
-            border-radius: 2px 0 0 0;
-          }
-
-          &:last-child {
-            border-radius: 0 2px 0 0;
-          }
-        }
+      &--GrayLighter {
+        background-color: mercury.$color-grayLighter;
       }
     }
 
-    tbody {
-      @include mercury.Typography--Body;
+    &__TableCell {
+      &--GrayLight {
+        color: mercury.$color-grayLight;
+      }
 
-      td {
-        padding: 0.75rem;
-        border-top: 1px solid mercury.$color-grayLight;
-        border-bottom: 1px solid mercury.$color-grayLight;
+      &--GrayDark {
+        color: mercury.$color-grayDark;
+      }
 
-        &:first-child {
-          border-left: 1px solid mercury.$color-grayLight;
+      &--Caps {
+        text-transform: capitalize;
+      }
+    }
+
+    &__Heading {
+      @include mercury.Typography--SmallScreenHeadingExtraLarge;
+
+      @media (min-width: 600px) {
+        @include mercury.Typography--HeadingExtraLarge;
+      }
+    }
+
+    &__Subheading {
+      @include mercury.Typography--SmallScreenHeadingLarge;
+
+      @media (min-width: 600px) {
+        @include mercury.Typography--HeadingLarge;
+      }
+    }
+
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+
+      table {
+        thead {
+          tr {
+            border-bottom: 1px solid mercury.$color-grayLighter;
+          }
         }
-
-        &:last-child {
-          border-right: 1px solid mercury.$color-grayLight;
+        tbody {
+          td {
+            border: none;
+          }
         }
+      }
 
-        &.grayDark {
-          color: mercury.$color-grayDark;
+      thead {
+        @include mercury.Typography--SubheadingSmall;
+
+        text-align: left;
+        color: mercury.$color-grayDarker;
+
+        tr {
+          th {
+            padding: 0.75rem;
+
+            &:first-child {
+              border-radius: 2px 0 0 0;
+            }
+
+            &:last-child {
+              border-radius: 0 2px 0 0;
+            }
+          }
         }
+      }
 
-        button {
-          @include mercury.Button;
+      tbody {
+        @include mercury.Typography--Body;
+
+        td {
+          padding: 0.75rem;
+          border-top: 1px solid mercury.$color-grayLight;
+          border-bottom: 1px solid mercury.$color-grayLight;
+
+          &:first-child {
+            border-left: 1px solid mercury.$color-grayLight;
+          }
+
+          &:last-child {
+            border-right: 1px solid mercury.$color-grayLight;
+          }
         }
       }
     }
