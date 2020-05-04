@@ -1,7 +1,5 @@
 import { Component, h, Element, State } from "@stencil/core";
 import { Connection } from "@manifoldco/manifold-init-types/types/v0";
-
-import query from "./invoices.graphql";
 import { InvoicesQuery } from "../../types/graphql";
 
 const $ = (amount: number, options: object = {}): string => {
@@ -39,22 +37,148 @@ export class ManifoldInvoices {
   }
 
   async fetchInvoices() {
-    const res = await (this.connection.graphqlFetch as any)(
-      {
-        query,
-        variables: {
-          first: 100,
-          after: "",
+    // const res = await (this.connection.graphqlFetch as any)(
+    //   {
+    //     query,
+    //     variables: {
+    //       first: 100,
+    //       after: "",
+    //     },
+    //   },
+    //   {
+    //     headers: {
+    //       "X-Manifold-Sample": "Platform",
+    //     },
+    //   }
+    // );
+
+    this.data = {
+      profile: {
+        invoices: {
+          edges: [
+            {
+              node: {
+                id: "3xvb42trtzmp3204kubcxv0azfp6u",
+                start: "2020-05-01T00:00:00Z",
+                end: "2020-05-31T23:59:59Z",
+                cost: 1000,
+                status: "PENDING",
+                lineItems: {
+                  edges: [
+                    {
+                      node: {
+                        duration: "MONTHLY",
+                        cost: 1000,
+                        chargeTime: "POST_PAID",
+                        resource: {
+                          displayName: "resource name (custom)",
+                          plan: { displayName: "plan-display-name" },
+                        },
+                        subLineItems: {
+                          edges: [
+                            {
+                              node: {
+                                cost: 0,
+                                item: "base-cost",
+                                description: "description",
+                                calculationType: "PRORATE",
+                              },
+                            },
+                            {
+                              node: {
+                                cost: 1000,
+                                item: "feature-enabled",
+                                description: "feature",
+                                calculationType: "PRORATE",
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              node: {
+                id: "3xv9rtmntw75vfy2nqvmfjf2eg3ac",
+                start: "2020-05-01T00:00:00Z",
+                end: "2020-05-31T23:59:59Z",
+                cost: 42,
+                status: "PENDING",
+                lineItems: {
+                  edges: [
+                    {
+                      node: {
+                        duration: "MONTHLY",
+                        cost: 42,
+                        chargeTime: "POST_PAID",
+                        resource: {
+                          displayName: "resource name (paid)",
+                          plan: { displayName: "plan-display-name" },
+                        },
+                        subLineItems: {
+                          edges: [
+                            {
+                              node: {
+                                cost: 42,
+                                item: "base-cost",
+                                description: "description",
+                                calculationType: "PRORATE",
+                              },
+                            },
+                            {
+                              node: {
+                                cost: 600,
+                                item: "measurements 1-10",
+                                description: "1-10",
+                                calculationType: "USAGE_TIER",
+                              },
+                            },
+                            {
+                              node: {
+                                cost: 1800,
+                                item: "measurements 11-20",
+                                description: "11-20",
+                                calculationType: "USAGE_TIER",
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    },
+                    {
+                      node: {
+                        duration: "MONTHLY",
+                        cost: 0,
+                        chargeTime: "POST_PAID",
+                        resource: {
+                          displayName: "resource name",
+                          plan: { displayName: "plan-display-name" },
+                        },
+                        subLineItems: {
+                          edges: [
+                            {
+                              node: {
+                                cost: 1000,
+                                item: "feature-enabled",
+                                description: "feature",
+                                calculationType: "PRORATE",
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
         },
       },
-      {
-        headers: {
-          "X-Manifold-Sample": "Platform",
-        },
-      }
-    );
-
-    this.data = res.data;
+    } as any;
   }
 
   select = (id?: string) => () => {
