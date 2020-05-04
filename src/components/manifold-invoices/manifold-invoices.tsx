@@ -39,13 +39,20 @@ export class ManifoldInvoices {
   }
 
   async fetchInvoices() {
-    const res = await this.connection.graphqlFetch<InvoicesQuery>({
-      query,
-      variables: {
-        first: 100,
-        after: "",
+    const res = await (this.connection.graphqlFetch as any)(
+      {
+        query,
+        variables: {
+          first: 100,
+          after: "",
+        },
       },
-    });
+      {
+        headers: {
+          "X-Manifold-Sample": "Platform",
+        },
+      }
+    );
 
     this.data = res.data;
   }
