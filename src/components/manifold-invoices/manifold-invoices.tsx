@@ -1,4 +1,4 @@
-import { Component, h, Element, State } from '@stencil/core';
+import { Component, h, Element, Prop, State } from '@stencil/core';
 import { Connection } from '@manifoldco/manifold-init-types/types/v0';
 
 import query from './invoices.graphql';
@@ -21,6 +21,7 @@ export class ManifoldInvoices {
   @Element() el: HTMLElement;
   @State() data?: InvoicesQuery;
   @State() selectedId?: string;
+  @Prop() preview?: boolean;
 
   connection: Connection;
 
@@ -37,10 +38,13 @@ export class ManifoldInvoices {
   }
 
   async fetchInvoices() {
-    const res = await this.connection.graphqlFetch<InvoicesQuery>({
-      query,
-      variables: { first: 100, after: '' },
-    });
+    const res = await this.connection.graphqlFetch<InvoicesQuery>(
+      {
+        query,
+        variables: { first: 100, after: '' },
+      },
+      { headers: { ...(this.preview ? { 'X-Manifold-Sample': 'Platform' } : {}) } }
+    );
 
     if (res.data) {
       this.data = res.data;
