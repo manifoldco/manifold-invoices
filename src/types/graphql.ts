@@ -10,6 +10,15 @@ export type Scalars = {
   Time: any;
 };
 
+export type Billing = {
+   __typename?: 'Billing';
+  duration: Maybe<SubscriptionAgreementDuration>;
+  chargeTime: Maybe<SubscriptionAgreementChargeTime>;
+  renewalPoint: Maybe<SubscriptionAgreementRenewalPoint>;
+  startTime: Maybe<Scalars['Time']>;
+  endTime: Maybe<Scalars['Time']>;
+};
+
 export type BooleanConfiguredFeature = ConfiguredFeature & {
    __typename?: 'BooleanConfiguredFeature';
   label: Scalars['String'];
@@ -402,6 +411,8 @@ export type Plan = Node & {
   free: Scalars['Boolean'];
   regions: Maybe<RegionConnection>;
   resizableTo: Maybe<PlanConnection>;
+  published: Maybe<Scalars['Boolean']>;
+  version: Maybe<Version>;
 };
 
 
@@ -603,9 +614,8 @@ export type Product = Node & {
   fixedFeatures: Maybe<ProductFixedFeatureConnection>;
   meteredFeatures: Maybe<ProductMeteredFeatureConnection>;
   configurableFeatures: Maybe<ProductConfigurableFeatureConnection>;
-  version: Maybe<Scalars['Int']>;
-  versionID: Maybe<Scalars['ID']>;
   published: Maybe<Scalars['Boolean']>;
+  version: Maybe<Version>;
 };
 
 
@@ -961,6 +971,7 @@ export type QueryProviderArgs = {
 
 export type QueryPlanArgs = {
   id: Scalars['ID'];
+  latest: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -968,6 +979,7 @@ export type QueryProductArgs = {
   id: Maybe<Scalars['ID']>;
   label: Maybe<Scalars['String']>;
   latest: Maybe<Scalars['Boolean']>;
+  version: Maybe<Scalars['Int']>;
 };
 
 
@@ -1225,6 +1237,7 @@ export type SubscriptionAgreement = Node & {
   status: SubscriptionAgreementStatus;
   configuredFeatures: Maybe<ConfiguredFeatureConnection>;
   owner: Maybe<Profile>;
+  billing: Maybe<Billing>;
 };
 
 
@@ -1233,17 +1246,29 @@ export type SubscriptionAgreementConfiguredFeaturesArgs = {
   after: Maybe<Scalars['String']>;
 };
 
+export enum SubscriptionAgreementChargeTime {
+  PostPaid = 'POST_PAID'
+}
+
 export type SubscriptionAgreementConnection = {
    __typename?: 'SubscriptionAgreementConnection';
   pageInfo: PageInfo;
   edges: Array<SubscriptionAgreementEdge>;
 };
 
+export enum SubscriptionAgreementDuration {
+  Monthly = 'MONTHLY'
+}
+
 export type SubscriptionAgreementEdge = {
    __typename?: 'SubscriptionAgreementEdge';
   cursor: Scalars['String'];
   node: Maybe<SubscriptionAgreement>;
 };
+
+export enum SubscriptionAgreementRenewalPoint {
+  Calendar = 'CALENDAR'
+}
 
 export type SubscriptionAgreementStatus = {
    __typename?: 'SubscriptionAgreementStatus';
@@ -1322,6 +1347,12 @@ export type ValueProp = {
    __typename?: 'ValueProp';
   header: Scalars['String'];
   body: Scalars['String'];
+};
+
+export type Version = {
+   __typename?: 'Version';
+  label: Maybe<Scalars['Int']>;
+  id: Maybe<Scalars['ID']>;
 };
 
 export type WithUsage = {

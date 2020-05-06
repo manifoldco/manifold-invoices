@@ -1,21 +1,21 @@
-import { Component, h, Element, State } from "@stencil/core";
-import { Connection } from "@manifoldco/manifold-init-types/types/v0";
+import { Component, h, Element, State } from '@stencil/core';
+import { Connection } from '@manifoldco/manifold-init-types/types/v0';
 
-import query from "./invoices.graphql";
-import { InvoicesQuery } from "../../types/graphql";
+import query from './invoices.graphql';
+import { InvoicesQuery } from '../../types/graphql';
 
 const $ = (amount: number, options: object = {}): string => {
-  return Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
+  return Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
     ...options,
   })
     .format(amount / 100)
-    .replace(/\.00$/, "");
+    .replace(/\.00$/, '');
 };
 
 @Component({
-  tag: "manifold-invoices",
+  tag: 'manifold-invoices',
 })
 export class ManifoldInvoices {
   @Element() el: HTMLElement;
@@ -25,13 +25,11 @@ export class ManifoldInvoices {
   connection: Connection;
 
   async componentWillLoad() {
-    await customElements.whenDefined("manifold-init");
-    const core = document.querySelector(
-      "manifold-init"
-    ) as HTMLManifoldInitElement;
+    await customElements.whenDefined('manifold-init');
+    const core = document.querySelector('manifold-init') as HTMLManifoldInitElement;
     this.connection = await core.initialize({
       element: this.el,
-      componentVersion: "<@NPM_PACKAGE_VERSION@>",
+      componentVersion: '<@NPM_PACKAGE_VERSION@>',
       version: 0,
     });
 
@@ -41,13 +39,12 @@ export class ManifoldInvoices {
   async fetchInvoices() {
     const res = await this.connection.graphqlFetch<InvoicesQuery>({
       query,
-      variables: {
-        first: 100,
-        after: "",
-      },
+      variables: { first: 100, after: '' },
     });
 
-    this.data = res.data;
+    if (res.data) {
+      this.data = res.data;
+    }
   }
 
   select = (id?: string) => () => {
@@ -61,13 +58,17 @@ export class ManifoldInvoices {
           (edge) => edge.node.id === this.selectedId
         );
 
+        if (!invoice) {
+          return null;
+        }
+
         return (
           <div>
             <button onClick={this.select()}>Back to all invoices</button>
             <h1 class="ManifoldInvoices__Subheading">
-              {new Intl.DateTimeFormat("en", {
-                year: "numeric",
-                month: "long",
+              {new Intl.DateTimeFormat('en', {
+                year: 'numeric',
+                month: 'long',
               }).format(new Date(invoice.node.end))}
             </h1>
             <table>
@@ -87,37 +88,36 @@ export class ManifoldInvoices {
                     <td>{edge.node.duration}</td>
                     <td>{edge.node.resource.plan.displayName}</td>
                   </tr>,
-                  edge.node.subLineItems &&
-                    edge.node.subLineItems.edges.length && (
-                      <tr>
-                        <td colSpan={4}>
-                          <table>
-                            <thead>
+                  edge.node.subLineItems && edge.node.subLineItems.edges.length && (
+                    <tr>
+                      <td colSpan={4}>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Feature(s)</th>
+                              <th>Cost</th>
+                              <th>Usage</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {edge.node.subLineItems.edges.map((sub) => (
                               <tr>
-                                <th>Feature(s)</th>
-                                <th>Cost</th>
-                                <th>Usage</th>
+                                <td class="ManifoldInvoices__TableCell--GrayDark ManifoldInvoices__TableCell--Caps">
+                                  {sub.node.item}
+                                </td>
+                                <td class="ManifoldInvoices__TableCell--GrayDark">
+                                  {$(sub.node.cost)}
+                                </td>
+                                <td class="ManifoldInvoices__TableCell--GrayDark">
+                                  {sub.node.description}
+                                </td>
                               </tr>
-                            </thead>
-                            <tbody>
-                              {edge.node.subLineItems.edges.map((sub) => (
-                                <tr>
-                                  <td class="ManifoldInvoices__TableCell--GrayDark ManifoldInvoices__TableCell--Caps">
-                                    {sub.node.item}
-                                  </td>
-                                  <td class="ManifoldInvoices__TableCell--GrayDark">
-                                    {$(sub.node.cost)}
-                                  </td>
-                                  <td class="ManifoldInvoices__TableCell--GrayDark">
-                                    {sub.node.description}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    ),
+                            ))}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  ),
                 ])}
               </tbody>
             </table>
@@ -142,16 +142,14 @@ export class ManifoldInvoices {
               return (
                 <tr id={invoice.node.id}>
                   <td class="ManifoldInvoices__TableCell--GrayDark">
-                    {new Intl.DateTimeFormat("en", {
-                      year: "numeric",
-                      month: "long",
+                    {new Intl.DateTimeFormat('en', {
+                      year: 'numeric',
+                      month: 'long',
                     }).format(new Date(invoice.node.end))}
                   </td>
                   <td>{$(invoice.node.cost)}</td>
                   <td>
-                    <button onClick={this.select(invoice.node.id)}>
-                      View details
-                    </button>
+                    <button onClick={this.select(invoice.node.id)}>View details</button>
                   </td>
                 </tr>
               );
@@ -160,6 +158,8 @@ export class ManifoldInvoices {
         </table>
       );
     }
+
+    return null;
   }
 
   render() {

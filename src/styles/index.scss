@@ -52,8 +52,8 @@ manifold-invoices {
     }
 
     table {
-      border-spacing: 0;
       border-collapse: collapse;
+      border-spacing: 0;
 
       table {
         thead {
@@ -71,8 +71,8 @@ manifold-invoices {
       thead {
         @include mercury.Typography--SubheadingSmall;
 
-        text-align: left;
         color: mercury.$color-grayDarker;
+        text-align: left;
 
         tr {
           th {
