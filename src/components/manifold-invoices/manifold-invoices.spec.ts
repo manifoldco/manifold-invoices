@@ -36,33 +36,33 @@ describe(ManifoldInvoices.name, () => {
       const { page } = await setup({ clientId: '123' });
       expect(fetchMock.called()).toBe(true);
 
-      const rows = page.root.querySelectorAll('tr');
-      expect(rows).toHaveLength(mockInvoices.data.profile.invoices.edges.length + 1);
+      const rows = page.root.querySelectorAll('[data-testid="invoice"]');
+      expect(rows).toHaveLength(mockInvoices.data.profile.invoices.edges.length);
     });
+  });
 
-    describe('when a user selects an invoice', () => {
-      it('should display the invoice details', async () => {
-        fetchMock.mock(GRAPHQL_ENDPOINT, mockInvoices);
-        const { page } = await setup({ clientId: '123' });
-        expect(fetchMock.called()).toBe(true);
+  describe('when a user selects an invoice', () => {
+    it('should display the invoice details', async () => {
+      fetchMock.mock(GRAPHQL_ENDPOINT, mockInvoices);
+      const { page } = await setup({ clientId: '123' });
+      expect(fetchMock.called()).toBe(true);
 
-        const row = page.root.querySelector(
-          `tr#${mockInvoices.data.profile.invoices.edges[0].node.id}`
-        );
+      const row = page.root.querySelector(
+        `#${mockInvoices.data.profile.invoices.edges[0].node.id}`
+      );
 
-        const button = row.querySelector('button');
-        button.click();
-        await page.waitForChanges();
+      const button = row.querySelector('button');
+      button.click();
+      await page.waitForChanges();
 
-        const backButton = page.root.querySelector('button');
-        expect(backButton.textContent).toEqual('Back to all invoices');
+      const backButton = page.root.querySelector('button');
+      expect(backButton.textContent).toContain('Back to all invoices');
 
-        backButton.click();
-        await page.waitForChanges();
+      backButton.click();
+      await page.waitForChanges();
 
-        const rows = page.root.querySelectorAll('tr');
-        expect(rows).toHaveLength(mockInvoices.data.profile.invoices.edges.length + 1);
-      });
+      const rows = page.root.querySelectorAll('[data-testid="invoice"]');
+      expect(rows).toHaveLength(mockInvoices.data.profile.invoices.edges.length);
     });
   });
 });
