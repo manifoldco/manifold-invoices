@@ -6,8 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
-## [0.1.4] - 2020-05-09
 ### Added
 - Collapsible rows
 - Styling improvements
@@ -17,5 +15,4 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Initial release
 
-[Unreleased]: https://github.com/manifoldco/manifold-invoices/compare/v0.1.4...HEAD
-[0.1.4]: https://github.com/manifoldco/manifold-invoices/compare/v0.0.1...v0.1.4
+[Unreleased]: https://github.com/manifoldco/manifold-invoices/compare/v0.0.1...HEAD
