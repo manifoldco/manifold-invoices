@@ -11,4 +11,4 @@ package:
 	cp LICENSE pkg/.
 	cp package.json pkg/.
 	cp README.md pkg/.
-	npm run clean-package-json -- ${VERSION}
+	npm run clean-package-json
