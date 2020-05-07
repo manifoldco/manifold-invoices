@@ -17,13 +17,13 @@ jobs:
       - run: npm install
       - run: npm run typecheck
       - run: npm run changelog:release -- ${GITHUB_REF#refs/tags/v}
-      - run: npm version from-git
       - name: Commit changes (if any)
         uses: EndBug/add-and-commit@v4
         with:
           author_name: 'manifold-dangerzone'
           author_email: 'admin+github-bot-dangerzone@manifold.co'
-          message: ${GITHUB_REF#refs/tags/v}
+          message: '🤖 Update CHANGELOG'
+      - run: npm version from-git
       - run: make package
       - run: 'echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc'
       - run: 'npm publish ./pkg --tag latest'
