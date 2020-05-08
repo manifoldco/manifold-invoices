@@ -1,6 +1,6 @@
 {
   "name": "@manifoldco/manifold-invoices",
-  "version": "0.0.1",
+  "version": "0.1.4",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -29,7 +29,8 @@
     "test.debug": "node --inspect-brk node_modules/.bin/stencil test --spec --e2e --runInBand",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "test": "stencil test --spec --e2e",
-    "typecheck": "npm run generate:gql && tsc --noEmit"
+    "typecheck": "npm run generate:gql && tsc --noEmit",
+    "version": "node scripts/bump-version"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.1",

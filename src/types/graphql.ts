@@ -972,6 +972,7 @@ export type QueryProviderArgs = {
 export type QueryPlanArgs = {
   id: Scalars['ID'];
   latest: Maybe<Scalars['Boolean']>;
+  version: Maybe<Scalars['Int']>;
 };
 
 
