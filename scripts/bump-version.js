@@ -10,4 +10,8 @@ const packageJson = JSON.parse(fs.readFileSync(PACKAGE_JSON_LOCATION, 'utf8'));
 packageJson.version = process.argv[2];
 
 // save file
-fs.writeFileSync(PACKAGE_JSON_LOCATION, JSON.stringify(packageJson, undefined, 2), 'utf8');
+fs.writeFileSync(
+  PACKAGE_JSON_LOCATION,
+  JSON.stringify(packageJson, undefined, 2).concat('\n'),
+  'utf8'
+);
