@@ -21,6 +21,7 @@ log.txt
 node_modules/
 $RECYCLE.BIN/
 .editorconfig
+storybook-static
 
 .DS_Store
 Thumbs.db
