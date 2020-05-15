@@ -1,0 +1,17 @@
+name: merge
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  vrt:
+    env:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install
+      - run: npm run vrt
