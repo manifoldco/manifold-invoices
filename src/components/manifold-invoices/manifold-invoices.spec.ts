@@ -5,6 +5,7 @@ import { ManifoldInvoices } from './manifold-invoices';
 import mockInvoices from './mockInvoices';
 
 const GRAPHQL_ENDPOINT = 'https://api.manifold.co/graphql';
+const ANALYTICS_ENDPOINT = 'https://analytics.manifold.co/v1/events';
 
 interface Props {
   clientId?: string;
@@ -26,9 +27,10 @@ async function setup(props: Props) {
 }
 
 describe(ManifoldInvoices.name, () => {
-  afterEach(() => {
-    fetchMock.reset();
+  beforeEach(() => {
+    fetchMock.mock(ANALYTICS_ENDPOINT, 200);
   });
+  afterEach(fetchMock.restore);
 
   describe('with no selected ID', () => {
     it('should display the list of invoices', async () => {
