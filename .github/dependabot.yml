@@ -1,0 +1,30 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+    timezone: America/Halifax
+  open-pull-requests-limit: 2
+  ignore:
+  - dependency-name: jest
+    versions:
+    - "*"
+  - dependency-name: jest-cli
+    versions:
+    - "*"
+  - dependency-name: puppeteer
+    versions:
+    - "*"
+  - dependency-name: "@types/jest"
+    versions:
+    - "*"
+  - dependency-name: "@graphql-codegen/typescript"
+    versions:
+    - 1.20.2
+    - 1.21.0
+    - 1.21.1
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
